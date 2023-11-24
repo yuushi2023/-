@@ -9,6 +9,9 @@
 <?php
 // データベースへの接続やユーザー認証などの処理
 
+// ログイン失敗時のエラーメッセージ
+$error = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['register'])) {
         // 新規登録の処理
@@ -22,9 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['loginUsername'];
         $password = $_POST['loginPassword'];
 
-        // データベースからユーザー情報を取得し、ログイン処理を行う
-        // SELECT * FROM users WHERE username='$username'
+        // ログイン処理（仮の処理）
         // 実際のデータベース操作に応じて修正が必要
+        if ($username === 'ユーザー名' && $password === 'パスワード') {
+            // ログイン成功時の処理
+            header('Location: login/ok');
+            exit;
+        } else {
+            // ログイン失敗時の処理
+            $error = 'ログインに失敗しました。ユーザー名またはパスワードが正しくありません。';
+            header('Location: login/?error=' . urlencode($error));
+            exit;
+        }
     }
 }
 ?>
@@ -39,6 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 
     <h1>ログイン</h1>
+    <?php if ($error !== ''): ?>
+        <p style="color: red;"><?php echo $error; ?></p>
+    <?php endif; ?>
     <form method="post">
         <label for="loginUsername">ユーザー名:</label>
         <input type="text" id="loginUsername" name="loginUsername"><br><br>
