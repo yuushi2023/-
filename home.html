@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン・新規登録</title>
+</head>
+<body>
+
+<?php
+// データベースへの接続やユーザー認証などの処理
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['register'])) {
+        // 新規登録の処理
+        $username = $_POST['regUsername'];
+        $password = $_POST['regPassword'];
+
+        // データベースにユーザー情報を挿入する処理
+        // INSERT INTO users (username, password) VALUES ('$username', '$password')
+    } elseif (isset($_POST['login'])) {
+        // ログインの処理
+        $username = $_POST['loginUsername'];
+        $password = $_POST['loginPassword'];
+
+        // データベースからユーザー情報を取得し、ログイン処理を行う
+        // SELECT * FROM users WHERE username='$username'
+        // 実際のデータベース操作に応じて修正が必要
+    }
+}
+?>
+
+    <h1>新規登録</h1>
+    <form method="post">
+        <label for="regUsername">ユーザー名:</label>
+        <input type="text" id="regUsername" name="regUsername"><br><br>
+        <label for="regPassword">パスワード:</label>
+        <input type="password" id="regPassword" name="regPassword"><br><br>
+        <input type="submit" name="register" value="新規登録">
+    </form>
+
+    <h1>ログイン</h1>
+    <form method="post">
+        <label for="loginUsername">ユーザー名:</label>
+        <input type="text" id="loginUsername" name="loginUsername"><br><br>
+        <label for="loginPassword">パスワード:</label>
+        <input type="password" id="loginPassword" name="loginPassword"><br><br>
+        <input type="submit" name="login" value="ログイン">
+    </form>
+</body>
+</html>
